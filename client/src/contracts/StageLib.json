@@ -1,0 +1,585 @@
+{
+  "contractName": "StageLib",
+  "abi": [],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.20+commit.a1b79de6\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/libraries/StageLib.sol\":\"StageLib\"},\"evmVersion\":\"berlin\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/libraries/StageLib.sol\":{\"keccak256\":\"0xe3fc067b767309b6aceda443b770a4da638a17715ee03c98ad42995440c5e571\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://307a34e4369cd5da79496608fbc2816da1608699d93539d49919d00faec664a4\",\"dweb:/ipfs/QmRyqM8fidNRfnPxQtksoZxdUv3j9EtU9D2Bttm7978Kp2\"]}},\"version\":1}",
+  "bytecode": "0x60566050600b82828239805160001a6073146043577f4e487b7100000000000000000000000000000000000000000000000000000000600052600060045260246000fd5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea26469706673582212200bf8e04edc0bca0ff6752a91af92d173a06abe7315b8bb01a6cdfaf83f329e6964736f6c63430008140033",
+  "deployedBytecode": "0x73000000000000000000000000000000000000000030146080604052600080fdfea26469706673582212200bf8e04edc0bca0ff6752a91af92d173a06abe7315b8bb01a6cdfaf83f329e6964736f6c63430008140033",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "60:419:10:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "60:419:10:-:0;;;;;;;;",
+  "source": "// SPDX-License-Identifier: MIT\r\npragma solidity ^0.8.0;\r\n\r\nlibrary StageLib {\r\n    enum ProductStage {\r\n        Ordered,\r\n        RawMaterialsProcured,\r\n        Manufactured,\r\n        Distributed,\r\n        Retail,\r\n        Sold\r\n    }\r\n\r\n    function nextStage(ProductStage currentStage) internal pure returns (ProductStage) {\r\n        require(uint(currentStage) < uint(ProductStage.Sold), \"Final stage reached.\");\r\n        return ProductStage(uint(currentStage) + 1);\r\n    }\r\n}\r\n",
+  "sourcePath": "E:\\cursuri\\ANUL3-SEM2\\Blockchain\\proiect\\Blockchain-Supply-Chain-Tracker\\contracts\\libraries\\StageLib.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/libraries/StageLib.sol",
+    "exportedSymbols": {
+      "StageLib": [
+        1495
+      ]
+    },
+    "id": 1496,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1454,
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "33:23:10"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "StageLib",
+        "contractDependencies": [],
+        "contractKind": "library",
+        "fullyImplemented": true,
+        "id": 1495,
+        "linearizedBaseContracts": [
+          1495
+        ],
+        "name": "StageLib",
+        "nameLocation": "68:8:10",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "canonicalName": "StageLib.ProductStage",
+            "id": 1461,
+            "members": [
+              {
+                "id": 1455,
+                "name": "Ordered",
+                "nameLocation": "113:7:10",
+                "nodeType": "EnumValue",
+                "src": "113:7:10"
+              },
+              {
+                "id": 1456,
+                "name": "RawMaterialsProcured",
+                "nameLocation": "131:20:10",
+                "nodeType": "EnumValue",
+                "src": "131:20:10"
+              },
+              {
+                "id": 1457,
+                "name": "Manufactured",
+                "nameLocation": "162:12:10",
+                "nodeType": "EnumValue",
+                "src": "162:12:10"
+              },
+              {
+                "id": 1458,
+                "name": "Distributed",
+                "nameLocation": "185:11:10",
+                "nodeType": "EnumValue",
+                "src": "185:11:10"
+              },
+              {
+                "id": 1459,
+                "name": "Retail",
+                "nameLocation": "207:6:10",
+                "nodeType": "EnumValue",
+                "src": "207:6:10"
+              },
+              {
+                "id": 1460,
+                "name": "Sold",
+                "nameLocation": "224:4:10",
+                "nodeType": "EnumValue",
+                "src": "224:4:10"
+              }
+            ],
+            "name": "ProductStage",
+            "nameLocation": "89:12:10",
+            "nodeType": "EnumDefinition",
+            "src": "84:151:10"
+          },
+          {
+            "body": {
+              "id": 1493,
+              "nodeType": "Block",
+              "src": "326:150:10",
+              "statements": [
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "commonType": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        "id": 1480,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "leftExpression": {
+                          "arguments": [
+                            {
+                              "id": 1473,
+                              "name": "currentStage",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 1464,
+                              "src": "350:12:10",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_enum$_ProductStage_$1461",
+                                "typeString": "enum StageLib.ProductStage"
+                              }
+                            }
+                          ],
+                          "expression": {
+                            "argumentTypes": [
+                              {
+                                "typeIdentifier": "t_enum$_ProductStage_$1461",
+                                "typeString": "enum StageLib.ProductStage"
+                              }
+                            ],
+                            "id": 1472,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": true,
+                            "lValueRequested": false,
+                            "nodeType": "ElementaryTypeNameExpression",
+                            "src": "345:4:10",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_type$_t_uint256_$",
+                              "typeString": "type(uint256)"
+                            },
+                            "typeName": {
+                              "id": 1471,
+                              "name": "uint",
+                              "nodeType": "ElementaryTypeName",
+                              "src": "345:4:10",
+                              "typeDescriptions": {}
+                            }
+                          },
+                          "id": 1474,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "kind": "typeConversion",
+                          "lValueRequested": false,
+                          "nameLocations": [],
+                          "names": [],
+                          "nodeType": "FunctionCall",
+                          "src": "345:18:10",
+                          "tryCall": false,
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "nodeType": "BinaryOperation",
+                        "operator": "<",
+                        "rightExpression": {
+                          "arguments": [
+                            {
+                              "expression": {
+                                "id": 1477,
+                                "name": "ProductStage",
+                                "nodeType": "Identifier",
+                                "overloadedDeclarations": [],
+                                "referencedDeclaration": 1461,
+                                "src": "371:12:10",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_type$_t_enum$_ProductStage_$1461_$",
+                                  "typeString": "type(enum StageLib.ProductStage)"
+                                }
+                              },
+                              "id": 1478,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": true,
+                              "lValueRequested": false,
+                              "memberLocation": "384:4:10",
+                              "memberName": "Sold",
+                              "nodeType": "MemberAccess",
+                              "referencedDeclaration": 1460,
+                              "src": "371:17:10",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_enum$_ProductStage_$1461",
+                                "typeString": "enum StageLib.ProductStage"
+                              }
+                            }
+                          ],
+                          "expression": {
+                            "argumentTypes": [
+                              {
+                                "typeIdentifier": "t_enum$_ProductStage_$1461",
+                                "typeString": "enum StageLib.ProductStage"
+                              }
+                            ],
+                            "id": 1476,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": true,
+                            "lValueRequested": false,
+                            "nodeType": "ElementaryTypeNameExpression",
+                            "src": "366:4:10",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_type$_t_uint256_$",
+                              "typeString": "type(uint256)"
+                            },
+                            "typeName": {
+                              "id": 1475,
+                              "name": "uint",
+                              "nodeType": "ElementaryTypeName",
+                              "src": "366:4:10",
+                              "typeDescriptions": {}
+                            }
+                          },
+                          "id": 1479,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": true,
+                          "kind": "typeConversion",
+                          "lValueRequested": false,
+                          "nameLocations": [],
+                          "names": [],
+                          "nodeType": "FunctionCall",
+                          "src": "366:23:10",
+                          "tryCall": false,
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "src": "345:44:10",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      {
+                        "hexValue": "46696e616c20737461676520726561636865642e",
+                        "id": 1481,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "string",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "391:22:10",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_stringliteral_ba73d9aa6862231fd65fab14825eb949f80473522ec25450370847317f0aa663",
+                          "typeString": "literal_string \"Final stage reached.\""
+                        },
+                        "value": "Final stage reached."
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        {
+                          "typeIdentifier": "t_stringliteral_ba73d9aa6862231fd65fab14825eb949f80473522ec25450370847317f0aa663",
+                          "typeString": "literal_string \"Final stage reached.\""
+                        }
+                      ],
+                      "id": 1470,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        4294967278,
+                        4294967278
+                      ],
+                      "referencedDeclaration": 4294967278,
+                      "src": "337:7:10",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (bool,string memory) pure"
+                      }
+                    },
+                    "id": 1482,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "nameLocations": [],
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "337:77:10",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 1483,
+                  "nodeType": "ExpressionStatement",
+                  "src": "337:77:10"
+                },
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "commonType": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        "id": 1490,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "leftExpression": {
+                          "arguments": [
+                            {
+                              "id": 1487,
+                              "name": "currentStage",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 1464,
+                              "src": "450:12:10",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_enum$_ProductStage_$1461",
+                                "typeString": "enum StageLib.ProductStage"
+                              }
+                            }
+                          ],
+                          "expression": {
+                            "argumentTypes": [
+                              {
+                                "typeIdentifier": "t_enum$_ProductStage_$1461",
+                                "typeString": "enum StageLib.ProductStage"
+                              }
+                            ],
+                            "id": 1486,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": true,
+                            "lValueRequested": false,
+                            "nodeType": "ElementaryTypeNameExpression",
+                            "src": "445:4:10",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_type$_t_uint256_$",
+                              "typeString": "type(uint256)"
+                            },
+                            "typeName": {
+                              "id": 1485,
+                              "name": "uint",
+                              "nodeType": "ElementaryTypeName",
+                              "src": "445:4:10",
+                              "typeDescriptions": {}
+                            }
+                          },
+                          "id": 1488,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "kind": "typeConversion",
+                          "lValueRequested": false,
+                          "nameLocations": [],
+                          "names": [],
+                          "nodeType": "FunctionCall",
+                          "src": "445:18:10",
+                          "tryCall": false,
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "nodeType": "BinaryOperation",
+                        "operator": "+",
+                        "rightExpression": {
+                          "hexValue": "31",
+                          "id": 1489,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": true,
+                          "kind": "number",
+                          "lValueRequested": false,
+                          "nodeType": "Literal",
+                          "src": "466:1:10",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_rational_1_by_1",
+                            "typeString": "int_const 1"
+                          },
+                          "value": "1"
+                        },
+                        "src": "445:22:10",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      ],
+                      "id": 1484,
+                      "name": "ProductStage",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 1461,
+                      "src": "432:12:10",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_type$_t_enum$_ProductStage_$1461_$",
+                        "typeString": "type(enum StageLib.ProductStage)"
+                      }
+                    },
+                    "id": 1491,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "typeConversion",
+                    "lValueRequested": false,
+                    "nameLocations": [],
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "432:36:10",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_enum$_ProductStage_$1461",
+                      "typeString": "enum StageLib.ProductStage"
+                    }
+                  },
+                  "functionReturnParameters": 1469,
+                  "id": 1492,
+                  "nodeType": "Return",
+                  "src": "425:43:10"
+                }
+              ]
+            },
+            "id": 1494,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "nextStage",
+            "nameLocation": "252:9:10",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 1465,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1464,
+                  "mutability": "mutable",
+                  "name": "currentStage",
+                  "nameLocation": "275:12:10",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1494,
+                  "src": "262:25:10",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_enum$_ProductStage_$1461",
+                    "typeString": "enum StageLib.ProductStage"
+                  },
+                  "typeName": {
+                    "id": 1463,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 1462,
+                      "name": "ProductStage",
+                      "nameLocations": [
+                        "262:12:10"
+                      ],
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 1461,
+                      "src": "262:12:10"
+                    },
+                    "referencedDeclaration": 1461,
+                    "src": "262:12:10",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_enum$_ProductStage_$1461",
+                      "typeString": "enum StageLib.ProductStage"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "261:27:10"
+            },
+            "returnParameters": {
+              "id": 1469,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1468,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1494,
+                  "src": "312:12:10",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_enum$_ProductStage_$1461",
+                    "typeString": "enum StageLib.ProductStage"
+                  },
+                  "typeName": {
+                    "id": 1467,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 1466,
+                      "name": "ProductStage",
+                      "nameLocations": [
+                        "312:12:10"
+                      ],
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 1461,
+                      "src": "312:12:10"
+                    },
+                    "referencedDeclaration": 1461,
+                    "src": "312:12:10",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_enum$_ProductStage_$1461",
+                      "typeString": "enum StageLib.ProductStage"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "311:14:10"
+            },
+            "scope": 1495,
+            "src": "243:233:10",
+            "stateMutability": "pure",
+            "virtual": false,
+            "visibility": "internal"
+          }
+        ],
+        "scope": 1496,
+        "src": "60:419:10",
+        "usedErrors": [],
+        "usedEvents": []
+      }
+    ],
+    "src": "33:448:10"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.20+commit.a1b79de6.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.16",
+  "updatedAt": "2024-05-09T19:14:11.848Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}

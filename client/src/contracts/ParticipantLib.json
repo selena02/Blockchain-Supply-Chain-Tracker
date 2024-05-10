@@ -1,0 +1,2221 @@
+{
+  "contractName": "ParticipantLib",
+  "abi": [],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.20+commit.a1b79de6\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/libraries/ParticipantLib.sol\":\"ParticipantLib\"},\"evmVersion\":\"berlin\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/libraries/ParticipantLib.sol\":{\"keccak256\":\"0x09137688aaa2026c9f8696c42645b3b0f088c46dd0f994fabad90d6fe14a495f\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://0e2afc45e89219afe7397b94d82d5f94343915cfe8850e760e96086025a15c78\",\"dweb:/ipfs/QmVi1RBP8qDAKbcDBJtP8x7Yuzi6Qv7opQGQ386KDSgHMz\"]}},\"version\":1}",
+  "bytecode": "0x60566050600b82828239805160001a6073146043577f4e487b7100000000000000000000000000000000000000000000000000000000600052600060045260246000fd5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea264697066735822122048871216b9265a437e0fc4e6c6ae883a7711d1eac7ca8df08015311e773adf5d64736f6c63430008140033",
+  "deployedBytecode": "0x73000000000000000000000000000000000000000030146080604052600080fdfea264697066735822122048871216b9265a437e0fc4e6c6ae883a7711d1eac7ca8df08015311e773adf5d64736f6c63430008140033",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "60:1682:8:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "60:1682:8:-:0;;;;;;;;",
+  "source": "// SPDX-License-Identifier: MIT\r\npragma solidity ^0.8.0;\r\n\r\nlibrary ParticipantLib {\r\n    struct Participant {\r\n        uint256 id;\r\n        address participantAddress;\r\n        string name;\r\n        string place;\r\n        bytes32 role;\r\n    }\r\n\r\n    struct Data {\r\n        uint256 nextId;\r\n        mapping(uint256 => Participant) participants;\r\n        mapping(address => uint256) participantIds;\r\n    }\r\n\r\n    function addParticipant(Data storage data, address participantAddress, string memory name, string memory place, bytes32 role) internal returns (uint256) {\r\n        require(data.participantIds[participantAddress] == 0, \"Participant already exists\");\r\n\r\n        data.participants[data.nextId] = Participant({\r\n            id: data.nextId,\r\n            name: name,\r\n            place: place,\r\n            participantAddress: participantAddress,\r\n            role: role\r\n        });\r\n        data.participantIds[participantAddress] = data.nextId;\r\n\r\n        return data.nextId++;\r\n    }\r\n\r\n    function getParticipant(Data storage data, uint256 id) internal view returns (Participant memory) {\r\n        require(id < data.nextId && id > 0, \"Participant does not exist\");\r\n        return data.participants[id];\r\n    }\r\n\r\n    function getParticipantId(Data storage data, address participantAddress) internal view returns (uint256) {\r\n        require(data.participantIds[participantAddress] != 0, \"Participant does not exist\");\r\n        return data.participantIds[participantAddress];\r\n    }\r\n\r\n    function getParticipantAddress(Data storage data, uint256 id) internal view returns (address) {\r\n        require(id < data.nextId && id > 0, \"Participant does not exist\");\r\n        return data.participants[id].participantAddress;\r\n    }\r\n}\r\n",
+  "sourcePath": "E:\\cursuri\\ANUL3-SEM2\\Blockchain\\proiect\\Blockchain-Supply-Chain-Tracker\\contracts\\libraries\\ParticipantLib.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/libraries/ParticipantLib.sol",
+    "exportedSymbols": {
+      "ParticipantLib": [
+        1388
+      ]
+    },
+    "id": 1389,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1224,
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "33:23:8"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "ParticipantLib",
+        "contractDependencies": [],
+        "contractKind": "library",
+        "fullyImplemented": true,
+        "id": 1388,
+        "linearizedBaseContracts": [
+          1388
+        ],
+        "name": "ParticipantLib",
+        "nameLocation": "68:14:8",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "canonicalName": "ParticipantLib.Participant",
+            "id": 1235,
+            "members": [
+              {
+                "constant": false,
+                "id": 1226,
+                "mutability": "mutable",
+                "name": "id",
+                "nameLocation": "128:2:8",
+                "nodeType": "VariableDeclaration",
+                "scope": 1235,
+                "src": "120:10:8",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 1225,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "120:7:8",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 1228,
+                "mutability": "mutable",
+                "name": "participantAddress",
+                "nameLocation": "149:18:8",
+                "nodeType": "VariableDeclaration",
+                "scope": 1235,
+                "src": "141:26:8",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 1227,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "141:7:8",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 1230,
+                "mutability": "mutable",
+                "name": "name",
+                "nameLocation": "185:4:8",
+                "nodeType": "VariableDeclaration",
+                "scope": 1235,
+                "src": "178:11:8",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 1229,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "178:6:8",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 1232,
+                "mutability": "mutable",
+                "name": "place",
+                "nameLocation": "207:5:8",
+                "nodeType": "VariableDeclaration",
+                "scope": 1235,
+                "src": "200:12:8",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 1231,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "200:6:8",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 1234,
+                "mutability": "mutable",
+                "name": "role",
+                "nameLocation": "231:4:8",
+                "nodeType": "VariableDeclaration",
+                "scope": 1235,
+                "src": "223:12:8",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bytes32",
+                  "typeString": "bytes32"
+                },
+                "typeName": {
+                  "id": 1233,
+                  "name": "bytes32",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "223:7:8",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "Participant",
+            "nameLocation": "97:11:8",
+            "nodeType": "StructDefinition",
+            "scope": 1388,
+            "src": "90:153:8",
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "ParticipantLib.Data",
+            "id": 1247,
+            "members": [
+              {
+                "constant": false,
+                "id": 1237,
+                "mutability": "mutable",
+                "name": "nextId",
+                "nameLocation": "282:6:8",
+                "nodeType": "VariableDeclaration",
+                "scope": 1247,
+                "src": "274:14:8",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 1236,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "274:7:8",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 1242,
+                "mutability": "mutable",
+                "name": "participants",
+                "nameLocation": "331:12:8",
+                "nodeType": "VariableDeclaration",
+                "scope": 1247,
+                "src": "299:44:8",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Participant_$1235_storage_$",
+                  "typeString": "mapping(uint256 => struct ParticipantLib.Participant)"
+                },
+                "typeName": {
+                  "id": 1241,
+                  "keyName": "",
+                  "keyNameLocation": "-1:-1:-1",
+                  "keyType": {
+                    "id": 1238,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "307:7:8",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "nodeType": "Mapping",
+                  "src": "299:31:8",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Participant_$1235_storage_$",
+                    "typeString": "mapping(uint256 => struct ParticipantLib.Participant)"
+                  },
+                  "valueName": "",
+                  "valueNameLocation": "-1:-1:-1",
+                  "valueType": {
+                    "id": 1240,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 1239,
+                      "name": "Participant",
+                      "nameLocations": [
+                        "318:11:8"
+                      ],
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 1235,
+                      "src": "318:11:8"
+                    },
+                    "referencedDeclaration": 1235,
+                    "src": "318:11:8",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Participant_$1235_storage_ptr",
+                      "typeString": "struct ParticipantLib.Participant"
+                    }
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 1246,
+                "mutability": "mutable",
+                "name": "participantIds",
+                "nameLocation": "382:14:8",
+                "nodeType": "VariableDeclaration",
+                "scope": 1247,
+                "src": "354:42:8",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
+                  "typeString": "mapping(address => uint256)"
+                },
+                "typeName": {
+                  "id": 1245,
+                  "keyName": "",
+                  "keyNameLocation": "-1:-1:-1",
+                  "keyType": {
+                    "id": 1243,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "362:7:8",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "nodeType": "Mapping",
+                  "src": "354:27:8",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
+                    "typeString": "mapping(address => uint256)"
+                  },
+                  "valueName": "",
+                  "valueNameLocation": "-1:-1:-1",
+                  "valueType": {
+                    "id": 1244,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "373:7:8",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "Data",
+            "nameLocation": "258:4:8",
+            "nodeType": "StructDefinition",
+            "scope": 1388,
+            "src": "251:153:8",
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 1302,
+              "nodeType": "Block",
+              "src": "565:429:8",
+              "statements": [
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "commonType": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        "id": 1269,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "leftExpression": {
+                          "baseExpression": {
+                            "expression": {
+                              "id": 1264,
+                              "name": "data",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 1250,
+                              "src": "584:4:8",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_struct$_Data_$1247_storage_ptr",
+                                "typeString": "struct ParticipantLib.Data storage pointer"
+                              }
+                            },
+                            "id": 1265,
+                            "isConstant": false,
+                            "isLValue": true,
+                            "isPure": false,
+                            "lValueRequested": false,
+                            "memberLocation": "589:14:8",
+                            "memberName": "participantIds",
+                            "nodeType": "MemberAccess",
+                            "referencedDeclaration": 1246,
+                            "src": "584:19:8",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
+                              "typeString": "mapping(address => uint256)"
+                            }
+                          },
+                          "id": 1267,
+                          "indexExpression": {
+                            "id": 1266,
+                            "name": "participantAddress",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 1252,
+                            "src": "604:18:8",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_address",
+                              "typeString": "address"
+                            }
+                          },
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "nodeType": "IndexAccess",
+                          "src": "584:39:8",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "nodeType": "BinaryOperation",
+                        "operator": "==",
+                        "rightExpression": {
+                          "hexValue": "30",
+                          "id": 1268,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": true,
+                          "kind": "number",
+                          "lValueRequested": false,
+                          "nodeType": "Literal",
+                          "src": "627:1:8",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_rational_0_by_1",
+                            "typeString": "int_const 0"
+                          },
+                          "value": "0"
+                        },
+                        "src": "584:44:8",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      {
+                        "hexValue": "5061727469636970616e7420616c726561647920657869737473",
+                        "id": 1270,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "string",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "630:28:8",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_stringliteral_36294eea575da5f966433b0b292d82b2b7eeb81a34c05d7a6850129b8879662c",
+                          "typeString": "literal_string \"Participant already exists\""
+                        },
+                        "value": "Participant already exists"
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        {
+                          "typeIdentifier": "t_stringliteral_36294eea575da5f966433b0b292d82b2b7eeb81a34c05d7a6850129b8879662c",
+                          "typeString": "literal_string \"Participant already exists\""
+                        }
+                      ],
+                      "id": 1263,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        4294967278,
+                        4294967278
+                      ],
+                      "referencedDeclaration": 4294967278,
+                      "src": "576:7:8",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (bool,string memory) pure"
+                      }
+                    },
+                    "id": 1271,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "nameLocations": [],
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "576:83:8",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 1272,
+                  "nodeType": "ExpressionStatement",
+                  "src": "576:83:8"
+                },
+                {
+                  "expression": {
+                    "id": 1287,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "baseExpression": {
+                        "expression": {
+                          "id": 1273,
+                          "name": "data",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 1250,
+                          "src": "672:4:8",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Data_$1247_storage_ptr",
+                            "typeString": "struct ParticipantLib.Data storage pointer"
+                          }
+                        },
+                        "id": 1277,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberLocation": "677:12:8",
+                        "memberName": "participants",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 1242,
+                        "src": "672:17:8",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Participant_$1235_storage_$",
+                          "typeString": "mapping(uint256 => struct ParticipantLib.Participant storage ref)"
+                        }
+                      },
+                      "id": 1278,
+                      "indexExpression": {
+                        "expression": {
+                          "id": 1275,
+                          "name": "data",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 1250,
+                          "src": "690:4:8",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Data_$1247_storage_ptr",
+                            "typeString": "struct ParticipantLib.Data storage pointer"
+                          }
+                        },
+                        "id": 1276,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberLocation": "695:6:8",
+                        "memberName": "nextId",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 1237,
+                        "src": "690:11:8",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "nodeType": "IndexAccess",
+                      "src": "672:30:8",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_Participant_$1235_storage",
+                        "typeString": "struct ParticipantLib.Participant storage ref"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "arguments": [
+                        {
+                          "expression": {
+                            "id": 1280,
+                            "name": "data",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 1250,
+                            "src": "736:4:8",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_Data_$1247_storage_ptr",
+                              "typeString": "struct ParticipantLib.Data storage pointer"
+                            }
+                          },
+                          "id": 1281,
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberLocation": "741:6:8",
+                          "memberName": "nextId",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": 1237,
+                          "src": "736:11:8",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        {
+                          "id": 1282,
+                          "name": "name",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 1254,
+                          "src": "768:4:8",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_string_memory_ptr",
+                            "typeString": "string memory"
+                          }
+                        },
+                        {
+                          "id": 1283,
+                          "name": "place",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 1256,
+                          "src": "794:5:8",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_string_memory_ptr",
+                            "typeString": "string memory"
+                          }
+                        },
+                        {
+                          "id": 1284,
+                          "name": "participantAddress",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 1252,
+                          "src": "834:18:8",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        },
+                        {
+                          "id": 1285,
+                          "name": "role",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 1258,
+                          "src": "873:4:8",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_bytes32",
+                            "typeString": "bytes32"
+                          }
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": [
+                          {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          },
+                          {
+                            "typeIdentifier": "t_string_memory_ptr",
+                            "typeString": "string memory"
+                          },
+                          {
+                            "typeIdentifier": "t_string_memory_ptr",
+                            "typeString": "string memory"
+                          },
+                          {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          },
+                          {
+                            "typeIdentifier": "t_bytes32",
+                            "typeString": "bytes32"
+                          }
+                        ],
+                        "id": 1279,
+                        "name": "Participant",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 1235,
+                        "src": "705:11:8",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_struct$_Participant_$1235_storage_ptr_$",
+                          "typeString": "type(struct ParticipantLib.Participant storage pointer)"
+                        }
+                      },
+                      "id": 1286,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "kind": "structConstructorCall",
+                      "lValueRequested": false,
+                      "nameLocations": [
+                        "732:2:8",
+                        "762:4:8",
+                        "787:5:8",
+                        "814:18:8",
+                        "867:4:8"
+                      ],
+                      "names": [
+                        "id",
+                        "name",
+                        "place",
+                        "participantAddress",
+                        "role"
+                      ],
+                      "nodeType": "FunctionCall",
+                      "src": "705:184:8",
+                      "tryCall": false,
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_Participant_$1235_memory_ptr",
+                        "typeString": "struct ParticipantLib.Participant memory"
+                      }
+                    },
+                    "src": "672:217:8",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Participant_$1235_storage",
+                      "typeString": "struct ParticipantLib.Participant storage ref"
+                    }
+                  },
+                  "id": 1288,
+                  "nodeType": "ExpressionStatement",
+                  "src": "672:217:8"
+                },
+                {
+                  "expression": {
+                    "id": 1296,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "baseExpression": {
+                        "expression": {
+                          "id": 1289,
+                          "name": "data",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 1250,
+                          "src": "900:4:8",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Data_$1247_storage_ptr",
+                            "typeString": "struct ParticipantLib.Data storage pointer"
+                          }
+                        },
+                        "id": 1292,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberLocation": "905:14:8",
+                        "memberName": "participantIds",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 1246,
+                        "src": "900:19:8",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
+                          "typeString": "mapping(address => uint256)"
+                        }
+                      },
+                      "id": 1293,
+                      "indexExpression": {
+                        "id": 1291,
+                        "name": "participantAddress",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 1252,
+                        "src": "920:18:8",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "nodeType": "IndexAccess",
+                      "src": "900:39:8",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "expression": {
+                        "id": 1294,
+                        "name": "data",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 1250,
+                        "src": "942:4:8",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Data_$1247_storage_ptr",
+                          "typeString": "struct ParticipantLib.Data storage pointer"
+                        }
+                      },
+                      "id": 1295,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberLocation": "947:6:8",
+                      "memberName": "nextId",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 1237,
+                      "src": "942:11:8",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "src": "900:53:8",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 1297,
+                  "nodeType": "ExpressionStatement",
+                  "src": "900:53:8"
+                },
+                {
+                  "expression": {
+                    "id": 1300,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "UnaryOperation",
+                    "operator": "++",
+                    "prefix": false,
+                    "src": "973:13:8",
+                    "subExpression": {
+                      "expression": {
+                        "id": 1298,
+                        "name": "data",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 1250,
+                        "src": "973:4:8",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Data_$1247_storage_ptr",
+                          "typeString": "struct ParticipantLib.Data storage pointer"
+                        }
+                      },
+                      "id": 1299,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberLocation": "978:6:8",
+                      "memberName": "nextId",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 1237,
+                      "src": "973:11:8",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "functionReturnParameters": 1262,
+                  "id": 1301,
+                  "nodeType": "Return",
+                  "src": "966:20:8"
+                }
+              ]
+            },
+            "id": 1303,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "addParticipant",
+            "nameLocation": "421:14:8",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 1259,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1250,
+                  "mutability": "mutable",
+                  "name": "data",
+                  "nameLocation": "449:4:8",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1303,
+                  "src": "436:17:8",
+                  "stateVariable": false,
+                  "storageLocation": "storage",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Data_$1247_storage_ptr",
+                    "typeString": "struct ParticipantLib.Data"
+                  },
+                  "typeName": {
+                    "id": 1249,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 1248,
+                      "name": "Data",
+                      "nameLocations": [
+                        "436:4:8"
+                      ],
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 1247,
+                      "src": "436:4:8"
+                    },
+                    "referencedDeclaration": 1247,
+                    "src": "436:4:8",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Data_$1247_storage_ptr",
+                      "typeString": "struct ParticipantLib.Data"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1252,
+                  "mutability": "mutable",
+                  "name": "participantAddress",
+                  "nameLocation": "463:18:8",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1303,
+                  "src": "455:26:8",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 1251,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "455:7:8",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1254,
+                  "mutability": "mutable",
+                  "name": "name",
+                  "nameLocation": "497:4:8",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1303,
+                  "src": "483:18:8",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 1253,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "483:6:8",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1256,
+                  "mutability": "mutable",
+                  "name": "place",
+                  "nameLocation": "517:5:8",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1303,
+                  "src": "503:19:8",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 1255,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "503:6:8",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1258,
+                  "mutability": "mutable",
+                  "name": "role",
+                  "nameLocation": "532:4:8",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1303,
+                  "src": "524:12:8",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 1257,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "524:7:8",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "435:102:8"
+            },
+            "returnParameters": {
+              "id": 1262,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1261,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1303,
+                  "src": "556:7:8",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 1260,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "556:7:8",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "555:9:8"
+            },
+            "scope": 1388,
+            "src": "412:582:8",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 1331,
+              "nodeType": "Block",
+              "src": "1100:123:8",
+              "statements": [
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "commonType": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        "id": 1322,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "leftExpression": {
+                          "commonType": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          },
+                          "id": 1318,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "leftExpression": {
+                            "id": 1315,
+                            "name": "id",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 1308,
+                            "src": "1119:2:8",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          },
+                          "nodeType": "BinaryOperation",
+                          "operator": "<",
+                          "rightExpression": {
+                            "expression": {
+                              "id": 1316,
+                              "name": "data",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 1306,
+                              "src": "1124:4:8",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_struct$_Data_$1247_storage_ptr",
+                                "typeString": "struct ParticipantLib.Data storage pointer"
+                              }
+                            },
+                            "id": 1317,
+                            "isConstant": false,
+                            "isLValue": true,
+                            "isPure": false,
+                            "lValueRequested": false,
+                            "memberLocation": "1129:6:8",
+                            "memberName": "nextId",
+                            "nodeType": "MemberAccess",
+                            "referencedDeclaration": 1237,
+                            "src": "1124:11:8",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          },
+                          "src": "1119:16:8",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_bool",
+                            "typeString": "bool"
+                          }
+                        },
+                        "nodeType": "BinaryOperation",
+                        "operator": "&&",
+                        "rightExpression": {
+                          "commonType": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          },
+                          "id": 1321,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "leftExpression": {
+                            "id": 1319,
+                            "name": "id",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 1308,
+                            "src": "1139:2:8",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          },
+                          "nodeType": "BinaryOperation",
+                          "operator": ">",
+                          "rightExpression": {
+                            "hexValue": "30",
+                            "id": 1320,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": true,
+                            "kind": "number",
+                            "lValueRequested": false,
+                            "nodeType": "Literal",
+                            "src": "1144:1:8",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_rational_0_by_1",
+                              "typeString": "int_const 0"
+                            },
+                            "value": "0"
+                          },
+                          "src": "1139:6:8",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_bool",
+                            "typeString": "bool"
+                          }
+                        },
+                        "src": "1119:26:8",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      {
+                        "hexValue": "5061727469636970616e7420646f6573206e6f74206578697374",
+                        "id": 1323,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "string",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "1147:28:8",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_stringliteral_dbbfc889e03e93e9ee157ac37da2ea35e6a1b18539d63bb281636875aabcb25d",
+                          "typeString": "literal_string \"Participant does not exist\""
+                        },
+                        "value": "Participant does not exist"
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        {
+                          "typeIdentifier": "t_stringliteral_dbbfc889e03e93e9ee157ac37da2ea35e6a1b18539d63bb281636875aabcb25d",
+                          "typeString": "literal_string \"Participant does not exist\""
+                        }
+                      ],
+                      "id": 1314,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        4294967278,
+                        4294967278
+                      ],
+                      "referencedDeclaration": 4294967278,
+                      "src": "1111:7:8",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (bool,string memory) pure"
+                      }
+                    },
+                    "id": 1324,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "nameLocations": [],
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1111:65:8",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 1325,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1111:65:8"
+                },
+                {
+                  "expression": {
+                    "baseExpression": {
+                      "expression": {
+                        "id": 1326,
+                        "name": "data",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 1306,
+                        "src": "1194:4:8",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Data_$1247_storage_ptr",
+                          "typeString": "struct ParticipantLib.Data storage pointer"
+                        }
+                      },
+                      "id": 1327,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberLocation": "1199:12:8",
+                      "memberName": "participants",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 1242,
+                      "src": "1194:17:8",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Participant_$1235_storage_$",
+                        "typeString": "mapping(uint256 => struct ParticipantLib.Participant storage ref)"
+                      }
+                    },
+                    "id": 1329,
+                    "indexExpression": {
+                      "id": 1328,
+                      "name": "id",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 1308,
+                      "src": "1212:2:8",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "IndexAccess",
+                    "src": "1194:21:8",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Participant_$1235_storage",
+                      "typeString": "struct ParticipantLib.Participant storage ref"
+                    }
+                  },
+                  "functionReturnParameters": 1313,
+                  "id": 1330,
+                  "nodeType": "Return",
+                  "src": "1187:28:8"
+                }
+              ]
+            },
+            "id": 1332,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getParticipant",
+            "nameLocation": "1011:14:8",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 1309,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1306,
+                  "mutability": "mutable",
+                  "name": "data",
+                  "nameLocation": "1039:4:8",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1332,
+                  "src": "1026:17:8",
+                  "stateVariable": false,
+                  "storageLocation": "storage",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Data_$1247_storage_ptr",
+                    "typeString": "struct ParticipantLib.Data"
+                  },
+                  "typeName": {
+                    "id": 1305,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 1304,
+                      "name": "Data",
+                      "nameLocations": [
+                        "1026:4:8"
+                      ],
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 1247,
+                      "src": "1026:4:8"
+                    },
+                    "referencedDeclaration": 1247,
+                    "src": "1026:4:8",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Data_$1247_storage_ptr",
+                      "typeString": "struct ParticipantLib.Data"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1308,
+                  "mutability": "mutable",
+                  "name": "id",
+                  "nameLocation": "1053:2:8",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1332,
+                  "src": "1045:10:8",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 1307,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1045:7:8",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1025:31:8"
+            },
+            "returnParameters": {
+              "id": 1313,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1312,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1332,
+                  "src": "1080:18:8",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Participant_$1235_memory_ptr",
+                    "typeString": "struct ParticipantLib.Participant"
+                  },
+                  "typeName": {
+                    "id": 1311,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 1310,
+                      "name": "Participant",
+                      "nameLocations": [
+                        "1080:11:8"
+                      ],
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 1235,
+                      "src": "1080:11:8"
+                    },
+                    "referencedDeclaration": 1235,
+                    "src": "1080:11:8",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Participant_$1235_storage_ptr",
+                      "typeString": "struct ParticipantLib.Participant"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1079:20:8"
+            },
+            "scope": 1388,
+            "src": "1002:221:8",
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 1357,
+              "nodeType": "Block",
+              "src": "1336:159:8",
+              "statements": [
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "commonType": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        "id": 1348,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "leftExpression": {
+                          "baseExpression": {
+                            "expression": {
+                              "id": 1343,
+                              "name": "data",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 1335,
+                              "src": "1355:4:8",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_struct$_Data_$1247_storage_ptr",
+                                "typeString": "struct ParticipantLib.Data storage pointer"
+                              }
+                            },
+                            "id": 1344,
+                            "isConstant": false,
+                            "isLValue": true,
+                            "isPure": false,
+                            "lValueRequested": false,
+                            "memberLocation": "1360:14:8",
+                            "memberName": "participantIds",
+                            "nodeType": "MemberAccess",
+                            "referencedDeclaration": 1246,
+                            "src": "1355:19:8",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
+                              "typeString": "mapping(address => uint256)"
+                            }
+                          },
+                          "id": 1346,
+                          "indexExpression": {
+                            "id": 1345,
+                            "name": "participantAddress",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 1337,
+                            "src": "1375:18:8",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_address",
+                              "typeString": "address"
+                            }
+                          },
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "nodeType": "IndexAccess",
+                          "src": "1355:39:8",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "nodeType": "BinaryOperation",
+                        "operator": "!=",
+                        "rightExpression": {
+                          "hexValue": "30",
+                          "id": 1347,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": true,
+                          "kind": "number",
+                          "lValueRequested": false,
+                          "nodeType": "Literal",
+                          "src": "1398:1:8",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_rational_0_by_1",
+                            "typeString": "int_const 0"
+                          },
+                          "value": "0"
+                        },
+                        "src": "1355:44:8",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      {
+                        "hexValue": "5061727469636970616e7420646f6573206e6f74206578697374",
+                        "id": 1349,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "string",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "1401:28:8",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_stringliteral_dbbfc889e03e93e9ee157ac37da2ea35e6a1b18539d63bb281636875aabcb25d",
+                          "typeString": "literal_string \"Participant does not exist\""
+                        },
+                        "value": "Participant does not exist"
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        {
+                          "typeIdentifier": "t_stringliteral_dbbfc889e03e93e9ee157ac37da2ea35e6a1b18539d63bb281636875aabcb25d",
+                          "typeString": "literal_string \"Participant does not exist\""
+                        }
+                      ],
+                      "id": 1342,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        4294967278,
+                        4294967278
+                      ],
+                      "referencedDeclaration": 4294967278,
+                      "src": "1347:7:8",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (bool,string memory) pure"
+                      }
+                    },
+                    "id": 1350,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "nameLocations": [],
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1347:83:8",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 1351,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1347:83:8"
+                },
+                {
+                  "expression": {
+                    "baseExpression": {
+                      "expression": {
+                        "id": 1352,
+                        "name": "data",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 1335,
+                        "src": "1448:4:8",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Data_$1247_storage_ptr",
+                          "typeString": "struct ParticipantLib.Data storage pointer"
+                        }
+                      },
+                      "id": 1353,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberLocation": "1453:14:8",
+                      "memberName": "participantIds",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 1246,
+                      "src": "1448:19:8",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
+                        "typeString": "mapping(address => uint256)"
+                      }
+                    },
+                    "id": 1355,
+                    "indexExpression": {
+                      "id": 1354,
+                      "name": "participantAddress",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 1337,
+                      "src": "1468:18:8",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "IndexAccess",
+                    "src": "1448:39:8",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "functionReturnParameters": 1341,
+                  "id": 1356,
+                  "nodeType": "Return",
+                  "src": "1441:46:8"
+                }
+              ]
+            },
+            "id": 1358,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getParticipantId",
+            "nameLocation": "1240:16:8",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 1338,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1335,
+                  "mutability": "mutable",
+                  "name": "data",
+                  "nameLocation": "1270:4:8",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1358,
+                  "src": "1257:17:8",
+                  "stateVariable": false,
+                  "storageLocation": "storage",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Data_$1247_storage_ptr",
+                    "typeString": "struct ParticipantLib.Data"
+                  },
+                  "typeName": {
+                    "id": 1334,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 1333,
+                      "name": "Data",
+                      "nameLocations": [
+                        "1257:4:8"
+                      ],
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 1247,
+                      "src": "1257:4:8"
+                    },
+                    "referencedDeclaration": 1247,
+                    "src": "1257:4:8",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Data_$1247_storage_ptr",
+                      "typeString": "struct ParticipantLib.Data"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1337,
+                  "mutability": "mutable",
+                  "name": "participantAddress",
+                  "nameLocation": "1284:18:8",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1358,
+                  "src": "1276:26:8",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 1336,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1276:7:8",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1256:47:8"
+            },
+            "returnParameters": {
+              "id": 1341,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1340,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1358,
+                  "src": "1327:7:8",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 1339,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1327:7:8",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1326:9:8"
+            },
+            "scope": 1388,
+            "src": "1231:264:8",
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 1386,
+              "nodeType": "Block",
+              "src": "1597:142:8",
+              "statements": [
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "commonType": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        "id": 1376,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "leftExpression": {
+                          "commonType": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          },
+                          "id": 1372,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "leftExpression": {
+                            "id": 1369,
+                            "name": "id",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 1363,
+                            "src": "1616:2:8",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          },
+                          "nodeType": "BinaryOperation",
+                          "operator": "<",
+                          "rightExpression": {
+                            "expression": {
+                              "id": 1370,
+                              "name": "data",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 1361,
+                              "src": "1621:4:8",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_struct$_Data_$1247_storage_ptr",
+                                "typeString": "struct ParticipantLib.Data storage pointer"
+                              }
+                            },
+                            "id": 1371,
+                            "isConstant": false,
+                            "isLValue": true,
+                            "isPure": false,
+                            "lValueRequested": false,
+                            "memberLocation": "1626:6:8",
+                            "memberName": "nextId",
+                            "nodeType": "MemberAccess",
+                            "referencedDeclaration": 1237,
+                            "src": "1621:11:8",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          },
+                          "src": "1616:16:8",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_bool",
+                            "typeString": "bool"
+                          }
+                        },
+                        "nodeType": "BinaryOperation",
+                        "operator": "&&",
+                        "rightExpression": {
+                          "commonType": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          },
+                          "id": 1375,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "leftExpression": {
+                            "id": 1373,
+                            "name": "id",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 1363,
+                            "src": "1636:2:8",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          },
+                          "nodeType": "BinaryOperation",
+                          "operator": ">",
+                          "rightExpression": {
+                            "hexValue": "30",
+                            "id": 1374,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": true,
+                            "kind": "number",
+                            "lValueRequested": false,
+                            "nodeType": "Literal",
+                            "src": "1641:1:8",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_rational_0_by_1",
+                              "typeString": "int_const 0"
+                            },
+                            "value": "0"
+                          },
+                          "src": "1636:6:8",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_bool",
+                            "typeString": "bool"
+                          }
+                        },
+                        "src": "1616:26:8",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      {
+                        "hexValue": "5061727469636970616e7420646f6573206e6f74206578697374",
+                        "id": 1377,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "string",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "1644:28:8",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_stringliteral_dbbfc889e03e93e9ee157ac37da2ea35e6a1b18539d63bb281636875aabcb25d",
+                          "typeString": "literal_string \"Participant does not exist\""
+                        },
+                        "value": "Participant does not exist"
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        {
+                          "typeIdentifier": "t_stringliteral_dbbfc889e03e93e9ee157ac37da2ea35e6a1b18539d63bb281636875aabcb25d",
+                          "typeString": "literal_string \"Participant does not exist\""
+                        }
+                      ],
+                      "id": 1368,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        4294967278,
+                        4294967278
+                      ],
+                      "referencedDeclaration": 4294967278,
+                      "src": "1608:7:8",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (bool,string memory) pure"
+                      }
+                    },
+                    "id": 1378,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "nameLocations": [],
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1608:65:8",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 1379,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1608:65:8"
+                },
+                {
+                  "expression": {
+                    "expression": {
+                      "baseExpression": {
+                        "expression": {
+                          "id": 1380,
+                          "name": "data",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 1361,
+                          "src": "1691:4:8",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Data_$1247_storage_ptr",
+                            "typeString": "struct ParticipantLib.Data storage pointer"
+                          }
+                        },
+                        "id": 1381,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberLocation": "1696:12:8",
+                        "memberName": "participants",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 1242,
+                        "src": "1691:17:8",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Participant_$1235_storage_$",
+                          "typeString": "mapping(uint256 => struct ParticipantLib.Participant storage ref)"
+                        }
+                      },
+                      "id": 1383,
+                      "indexExpression": {
+                        "id": 1382,
+                        "name": "id",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 1363,
+                        "src": "1709:2:8",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "nodeType": "IndexAccess",
+                      "src": "1691:21:8",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_Participant_$1235_storage",
+                        "typeString": "struct ParticipantLib.Participant storage ref"
+                      }
+                    },
+                    "id": 1384,
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "memberLocation": "1713:18:8",
+                    "memberName": "participantAddress",
+                    "nodeType": "MemberAccess",
+                    "referencedDeclaration": 1228,
+                    "src": "1691:40:8",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "functionReturnParameters": 1367,
+                  "id": 1385,
+                  "nodeType": "Return",
+                  "src": "1684:47:8"
+                }
+              ]
+            },
+            "id": 1387,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getParticipantAddress",
+            "nameLocation": "1512:21:8",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 1364,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1361,
+                  "mutability": "mutable",
+                  "name": "data",
+                  "nameLocation": "1547:4:8",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1387,
+                  "src": "1534:17:8",
+                  "stateVariable": false,
+                  "storageLocation": "storage",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Data_$1247_storage_ptr",
+                    "typeString": "struct ParticipantLib.Data"
+                  },
+                  "typeName": {
+                    "id": 1360,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 1359,
+                      "name": "Data",
+                      "nameLocations": [
+                        "1534:4:8"
+                      ],
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 1247,
+                      "src": "1534:4:8"
+                    },
+                    "referencedDeclaration": 1247,
+                    "src": "1534:4:8",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Data_$1247_storage_ptr",
+                      "typeString": "struct ParticipantLib.Data"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1363,
+                  "mutability": "mutable",
+                  "name": "id",
+                  "nameLocation": "1561:2:8",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1387,
+                  "src": "1553:10:8",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 1362,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1553:7:8",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1533:31:8"
+            },
+            "returnParameters": {
+              "id": 1367,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1366,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1387,
+                  "src": "1588:7:8",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 1365,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1588:7:8",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1587:9:8"
+            },
+            "scope": 1388,
+            "src": "1503:236:8",
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "internal"
+          }
+        ],
+        "scope": 1389,
+        "src": "60:1682:8",
+        "usedErrors": [],
+        "usedEvents": []
+      }
+    ],
+    "src": "33:1711:8"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.20+commit.a1b79de6.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.16",
+  "updatedAt": "2024-05-09T19:14:11.826Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}
