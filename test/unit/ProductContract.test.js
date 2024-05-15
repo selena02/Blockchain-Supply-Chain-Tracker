@@ -143,4 +143,21 @@ contract("ProductContract Tests", (accounts) => {
     const product = await productContract.products(2);
     assert.equal(product.stage.toString(), "5", "Product should be sold");
   });
+
+  it("should reject updates for non-existent product IDs", async () => {
+    // Assuming nextProductId will be incremented to 3 after the last addProduct call in previous tests
+    const nonExistentProductId = 100;
+
+    try {
+      await productContract.updateProductStage(nonExistentProductId, 1, {
+        from: supplier,
+      }); // Assuming stage 1 is valid here
+      assert.fail("Should not update non-existent product");
+    } catch (error) {
+      assert(
+        error.message.includes("Product does not exist"),
+        "Error message should indicate that the product does not exist"
+      );
+    }
+  });
 });

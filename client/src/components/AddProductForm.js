@@ -1,35 +1,44 @@
-import React, { useState, useEffect } from 'react';
-import useContract from '../hooks/useProductContract';
-import ProductContractABI from '../contracts/ProductContract.json';
-import '../style/Forms.css';
+import React, { useState, useEffect } from "react";
+import useContract from "../hooks/useProductContract";
+import ProductContractABI from "../contracts/ProductContract.json";
+import "../style/Forms.css";
 
 const AddProductForm = ({ contractAddress }) => {
   const productContract = useContract(ProductContractABI.abi, contractAddress);
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
   const [products, setProducts] = useState(() => {
-    const savedProducts = localStorage.getItem('products');
+    const savedProducts = localStorage.getItem("products");
     return savedProducts ? JSON.parse(savedProducts) : [];
   });
 
   useEffect(() => {
-    localStorage.setItem('products', JSON.stringify(products));
+    localStorage.setItem("products", JSON.stringify(products));
   }, [products]);
 
   const handleAddProduct = async (event) => {
     event.preventDefault();
     try {
-      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-      await productContract.methods.addProduct(name, description).send({ from: accounts[0] });
-      
+      const accounts = await window.ethereum.request({
+        method: "eth_requestAccounts",
+      });
+
+      const gasEstimate = await productContract.methods
+        .addProduct(name, description)
+        .estimateGas({ from: accounts[0] });
+
+      await productContract.methods
+        .addProduct(name, description)
+        .send({ from: accounts[0], gas: gasEstimate });
+
       const newProduct = { id: products.length + 1, name, description };
       setProducts([...products, newProduct]);
 
-      alert('Product added successfully!');
-      setName('');
-      setDescription('');
+      alert("Product added successfully!");
+      setName("");
+      setDescription("");
     } catch (error) {
-      alert('Error adding product: ' + error.message);
+      alert("Error adding product: " + error.message);
     }
   };
 
@@ -38,11 +47,20 @@ const AddProductForm = ({ contractAddress }) => {
       <form onSubmit={handleAddProduct}>
         <div className="form-group">
           <label>Product Name:</label>
-          <input type="text" value={name} onChange={e => setName(e.target.value)} />
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
         </div>
         <div className="form-group">
           <label>Description:</label>
-          <textarea value={description} onChange={e => setDescription(e.target.value)} />
+          <textarea
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
+          />
         </div>
         <div className="form-group">
           <button type="submit">Add Product</button>
@@ -51,8 +69,10 @@ const AddProductForm = ({ contractAddress }) => {
 
       <h3>Added Products</h3>
       <ul>
-        {products.map(product => (
-          <li key={product.productId}>{product.name} - {product.description}</li>
+        {products.map((product) => (
+          <li key={product.id}>
+            {product.name} - {product.description}
+          </li>
         ))}
       </ul>
     </div>

@@ -17,18 +17,16 @@ contract AccessControlManager is AccessControl {
 
     event ParticipantAdded(uint256 indexed id, address indexed participantAddress, bytes32 role);
 
-    modifier onlyAdmin() {
-        require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender), "Access Denied: Only admins can perform this action");
-        _;
-    }
-
     constructor() {
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
         participantData.nextId = 1;
     }
 
-    function addParticipant(address participantAddress, string memory name, string memory place, bytes32 role) external onlyAdmin {
+    function addParticipant(address participantAddress, string memory name, string memory place, bytes32 role) external {
+        require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender), "Access Denied: Only admins can perform this action");
         require(isRoleValid(role), "Invalid role: valid roles are RAW_MATERIAL_SUPPLIER, MANUFACTURER, DISTRIBUTOR, RETAILER, CLIENT");
+        require(participantAddress != address(0), "Invalid address: address is zero");
+        require(participantData.participantIds[participantAddress] == 0, "Participant already exists");
 
         uint256 id = participantData.addParticipant(participantAddress, name, place, role);
         _grantRole(role, participantAddress);
